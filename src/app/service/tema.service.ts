@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Tema } from '../model/Tema';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +22,24 @@ export class TemaService {
     return this.http.get<Tema[]>('https://blogdarivera.herokuapp.com/tema', this.token)
   }
 
+  getByIdTema(id: number): Observable<Tema>{
+    //template literals => uso de crase no lugar das aspas
+    //serve para passar variáveis no endereço com padrão ${'variavel}
+    return this.http.get<Tema>(`https://blogdarivera.herokuapp.com/tema/${id}`, this.token)
+  }
+
   postTema(tema: Tema): Observable<Tema>{
     //return this.http.post<Tema>('https://backendthiagofaccipieri.herokuapp.com/tema', tema, this.token);
     return this.http.post<Tema>('https://blogdarivera.herokuapp.com/tema', tema, this.token)
+  }
+
+  putTema(tema: Tema): Observable<Tema>{
+    return this.http.put<Tema>('https://blogdarivera.herokuapp.com/tema', tema, this.token)
+  }
+
+  deleteTema(id: number){
+    //template literals => uso de crase no lugar das aspas
+    //serve para passar variáveis no endereço com padrão ${'variavel}
+    return this.http.delete(`https://blogdarivera.herokuapp.com/tema/${id}`, this.token)
   }
 }
